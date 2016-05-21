@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Larp Char Tool</title>
+    <!-- next line looks like a comment but is an include -->
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!-- next line looks like a comment but is an include -->
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <div class="jumbotron">
+        <div class="row text-center">
+            <div class="">
+                <h2>Heiko Waldschmidts LARP-Chartool</h2>
+                <h3>Have fun with it!</h3>
+            </div>
+        </div>
+        <div class="row text-center">
+            <img src="../../static/images/n7_rakulus_at_the_fireplace.jpg" width="400"
+                 th:src="@{/images/n7_rakulus_at_the_fireplace.jpg}"/>
+            <h3>Please use Chrome / Only tested with Chrome.</h3>
+        </div>
+    </div>
+</div>
+</body>
+</html>

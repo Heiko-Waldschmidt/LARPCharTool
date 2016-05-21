@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Larp Char Tool</title>
+    <!-- next line looks like a comment but is an include -->
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!-- next line looks like a comment but is an include -->
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <table  style="width:100%">
+        <tr><td colspan="2"><h2>Features and their Usage</h2></td></tr>
+        <tr>
+            <th>Feature</th>
+            <th>HowTo</th>
+        </tr>
+        <tr>
+            <td >A Convention History of a Character can be added and will be saved in a H2 Database.</td>
+            <td>
+                <ol>
+                    <li>Add a Character (at "Characters" page)</li>
+                    <li>Add a Convention (at "Conventions" page).</li>
+                    <li>Add a Visit of the Character at the Convention (at "Visits" page).</li>
+                </ol>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Cascading deletes: If you delete a Convention or a Character all regarding Visits
+                were automatically deleted.
+            </td>
+            <td>
+                <ul>
+                    <li>To delete a Character hit on "Delete" at the "Characters" pages.</li>
+                    <li>To delete a Convention hit on "Delete at the "Conventions" page.</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Planned: Filtering. Goal: See the list of all visits of only one Character.
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Planned: Calculation of the sum of Condays per Character.
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Planned: Export of the list of the Visits one Character.
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr><td colspan="2"><h2>Configuration</h2></td></tr>
+        <tr>
+            <td>Server Port:</td>
+            <td th:text="${env.getProperty('server.port')}"/>
+        </tr>
+        <tr><td colspan="2"><h2>H2 Database Console</h2></td></tr>
+        <tr>
+            <td>JDBC-URL:</td>
+            <td th:text="${env.getProperty('spring.datasource.url')}"/>
+        </tr>
+        <tr>
+            <td>Username:</td>
+            <td th:text="${env.getProperty('spring.datasource.username')}"/>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td th:text="${env.getProperty('spring.datasource.password')}"/>
+        </tr>
+        <tr><td colspan="2"><h2>Known Issues</h2></td></tr>
+        <tr>
+            <td colspan="2">The Tool uses HTML5 'input type="date"' which is not implemented in every browser</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

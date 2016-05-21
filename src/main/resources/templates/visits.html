@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Larp Char Tool</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <div>
+        <a href="#" th:href="@{/visit/new}" class="btn btn-default">Add Visit</a>
+    </div>
+    <div th:if="${not #lists.isEmpty(visits)}">
+        <h2>Visits</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Character</th>
+                <th>Convention</th>
+                <th>Condays</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="visit : ${visits}">
+                <td th:text="${visit.id}"><a href="/visit/${visit.id}">Id</a></td>
+                <td th:text="${visit.chara.name}">Character</td>
+                <td th:text="${visit.convention.title}">Convention</td>
+                <td th:text="${visit.condays}">Condays</td>
+                <td><a th:href="${ '/visit/' + visit.id}">View</a></td>
+                <td><a th:href="${'/visit/edit/' + visit.id}">Edit</a></td>
+                <td><a th:href="${'/visit/delete/' + visit.id}">Delete</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

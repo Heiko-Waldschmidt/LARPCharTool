@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Larp Char Tool</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <div>
+        <a href="#" th:href="@{/chara/new}" class="btn btn-default">Add Character</a>
+    </div>
+    <div th:if="${not #lists.isEmpty(charas)}">
+        <h2>Characters</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="chara : ${charas}">
+                <td th:text="${chara.id}"><a href="/chara/${chara.id}">Id</a></td>
+                <td th:text="${chara.name}">Title</td>
+                <td><a th:href="${ '/chara/' + chara.id}">View</a></td>
+                <td><a th:href="${'/chara/edit/' + chara.id}">Edit</a></td>
+                <td><a th:href="${'/chara/delete/' + chara.id}">Delete</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

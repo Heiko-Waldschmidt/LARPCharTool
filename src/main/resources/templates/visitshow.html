@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Larp Char Tool</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+    <h2>Visit Details</h2>
+        <div>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Id:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${visit.id}"></p></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Character:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${visit.chara.name}"></p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Convention:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${visit.convention.title}"></p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Condays:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${visit.condays}"></p>
+                    </div>
+                </div>
+            </form>
+    </div>
+</div>
+
+</body>
+</html>

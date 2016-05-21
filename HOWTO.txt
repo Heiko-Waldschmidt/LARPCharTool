@@ -1,0 +1,17 @@
+Build and run stuff:
+
+You can run this with:
+mvn spring-boot:run
+
+You can build this with:
+mvn package
+
+Afterwards you can simply run the jar with:
+java -jar jarfilename
+
+Usage:
+You can connect to this tool with a browser via localhost:portnumber. You will find the port number in
+src/main/resources/application.properties
+
+Only tested with Chrome. Should work with Safari and Opera too. Other Browser don't implement
+ HTML5-Datapickers yet (Feb. 2016).
