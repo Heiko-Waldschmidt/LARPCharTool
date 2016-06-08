@@ -25,7 +25,7 @@
             <tr th:each="chara : ${charas}">
                 <td th:text="${chara.id}"><a href="/chara/${chara.id}">Id</a></td>
                 <td th:text="${chara.name}">Title</td>
-                <td><a th:href="${ '/chara/' + chara.id}">View</a></td>
+                <td><a th:href="${ '/chara/' + chara.id}">Character Sheet</a></td>
                 <td><a th:href="${'/chara/edit/' + chara.id}">Edit</a></td>
                 <td><a th:href="${'/chara/delete/' + chara.id}">Delete</a></td>
             </tr>

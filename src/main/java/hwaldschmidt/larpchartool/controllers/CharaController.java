@@ -1,7 +1,9 @@
 package hwaldschmidt.larpchartool.controllers;
 
 import hwaldschmidt.larpchartool.domain.Chara;
+import hwaldschmidt.larpchartool.domain.Visit;
 import hwaldschmidt.larpchartool.services.CharaService;
+import hwaldschmidt.larpchartool.services.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class CharaController {
 
     private CharaService charaService;
+    private VisitService visitService;
+
+    @Autowired
+    public void setVisitService(VisitService visitService){
+        this.visitService = visitService;
+    }
 
     @Autowired
     public void setCharaService(CharaService charaService) {
@@ -32,7 +40,10 @@ public class CharaController {
 
     @RequestMapping("chara/{id}")
     public String showChara(@PathVariable Integer id, Model model){
-        model.addAttribute("chara", charaService.getCharaById(id));
+        Chara chara = charaService.getCharaById(id);
+        model.addAttribute("chara", chara);
+        model.addAttribute("visits", visitService.findByCharaOrderByConventionStartAsc(chara));
+        model.addAttribute("condays", visitService.sumCondaysByChara(chara));
         return "charashow";
     }
 

@@ -1,9 +1,12 @@
 package hwaldschmidt.larpchartool.services;
 
+import hwaldschmidt.larpchartool.domain.Chara;
 import hwaldschmidt.larpchartool.domain.Visit;
 import hwaldschmidt.larpchartool.repositories.VisitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author Heiko Waldschmidt
@@ -36,5 +39,16 @@ public class VisitServiceImpl implements VisitService {
     @Override
     public void deleteVisit(Integer id) {
         visitRepository.delete(id);
+    }
+
+    @Override
+    public List<Visit> findByCharaOrderByConventionStartAsc(Chara chara) {
+        return visitRepository.findByCharaOrderByConventionStartAsc(chara);
+    }
+
+    @Override
+    public int sumCondaysByChara(Chara chara){
+        Integer condays = visitRepository.sumCondaysByChara(chara);
+        return condays != null ? condays : 0;
     }
 }
