@@ -19,7 +19,7 @@ public class CharaRepositoryTest {
     private CharaRepository charaRepository;
 
     @Autowired
-    public void setConventionRepository(CharaRepository charaRepository) {
+    public void setCharaRepository(CharaRepository charaRepository) {
         this.charaRepository = charaRepository;
     }
 

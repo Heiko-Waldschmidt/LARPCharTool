@@ -11,5 +11,5 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EntityScan(basePackages = {"hwaldschmidt.larpchartool.domain"})
 @EnableJpaRepositories(basePackages = {"hwaldschmidt.larpchartool.repositories"})
 @EnableTransactionManagement
-public class VisitsConfiguration {
+public class VisitConfiguration {
 }
