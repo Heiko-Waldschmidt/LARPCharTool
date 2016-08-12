@@ -1,8 +1,11 @@
 package hwaldschmidt.larpchartool.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -27,11 +30,15 @@ public class Convention {
     @Column(unique=true, nullable=false)
     private String title;
 
-//    @NotNull
-    private Date start;
+    //@NotNull
+    // Creates a converter for string to localeDate conversion. Needed since I use LocalDate
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate start;
 
-//    @NotNull
-    private Date end;
+    //@NotNull
+    // Creates a converter for string to localeDate conversion. Needed since I use LocalDate
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate end;
 
     private boolean df = false;
 
@@ -67,19 +74,19 @@ public class Convention {
         this.title = title;
     }
 
-    public Date getStart() {
+    public LocalDate getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(LocalDate start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public LocalDate getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(LocalDate end) {
         this.end = end;
     }
 
@@ -117,5 +124,17 @@ public class Convention {
         result = 31 * result + (end != null ? end.hashCode() : 0);
         result = 31 * result + (df ? 1 : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Convention{" +
+                "id=" + id +
+                ", version=" + version +
+                ", title='" + title + '\'' +
+                ", start=" + start +
+                ", end=" + end +
+                ", df=" + df +
+                '}';
     }
 }

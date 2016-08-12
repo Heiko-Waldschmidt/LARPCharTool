@@ -4,11 +4,14 @@ import hwaldschmidt.larpchartool.configuration.VisitConfiguration;
 import hwaldschmidt.larpchartool.domain.Chara;
 import hwaldschmidt.larpchartool.domain.Convention;
 import hwaldschmidt.larpchartool.domain.Visit;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -35,6 +38,13 @@ public class VisitRepositoryTest {
     @Autowired
     public void setVisitRepository(VisitRepository visitRepository){
         this.visitRepository = visitRepository;
+    }
+
+    @Before
+    public void setUp(){
+        charaRepository.deleteAll();
+        conventionRepository.deleteAll();
+        visitRepository.deleteAll();
     }
 
     @Test
@@ -65,8 +75,8 @@ public class VisitRepositoryTest {
         Convention convention = new Convention();
         convention.setTitle("Title");
         convention.setDf(false);
-        convention.setStart(new java.sql.Date(2000, 1, 1));
-        convention.setEnd(new java.sql.Date(2000, 12, 31));
+        convention.setStart(LocalDate.of(2000, 1, 1));
+        convention.setEnd(LocalDate.of(2000, 12, 31));
         assertNull(convention.getId()); //null before save
         conventionRepository.save(convention);
         assertNotNull(convention.getId()); // not null after save

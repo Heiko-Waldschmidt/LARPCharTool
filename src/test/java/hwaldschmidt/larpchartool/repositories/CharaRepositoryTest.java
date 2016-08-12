@@ -2,6 +2,7 @@ package hwaldschmidt.larpchartool.repositories;
 
 import hwaldschmidt.larpchartool.configuration.CharaConfiguration;
 import hwaldschmidt.larpchartool.domain.Chara;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ public class CharaRepositoryTest {
     @Autowired
     public void setCharaRepository(CharaRepository charaRepository) {
         this.charaRepository = charaRepository;
+    }
+
+    @Before
+    public void setUp(){
+        charaRepository.deleteAll();
     }
 
     @Test

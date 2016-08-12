@@ -13,6 +13,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * The Loader puts some basic data into the database.
@@ -57,22 +58,22 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
         chara2 = charaRepository.save(chara2);
 
         Convention convention1 = new Convention();
-        convention1.setStart(new Date(100, 0, 1));
-        convention1.setEnd(new Date(100, 11, 31));
+        convention1.setStart(LocalDate.of(100, 1, 1));
+        convention1.setEnd(LocalDate.of(100, 11, 30));
         convention1.setTitle("Test-Convention 1");
         convention1.setDf(false);
         convention1 = conventionRepository.save(convention1);
 
         Convention convention2 = new Convention();
-        convention2.setStart(new Date(101, 0, 1));
-        convention2.setEnd(new Date(101, 11, 31));
+        convention2.setStart(LocalDate.of(101, 1, 1));
+        convention2.setEnd(LocalDate.of(101, 11, 30));
         convention2.setTitle("Test-Convention 2");
         convention2.setDf(true);
         convention2 = conventionRepository.save(convention2);
 
         Convention convention3 = new Convention();
-        convention3.setStart(new Date(102, 0, 1));
-        convention3.setEnd(new Date(102, 11, 31));
+        convention3.setStart(LocalDate.of(102, 1, 1));
+        convention3.setEnd(LocalDate.of(102, 11, 30));
         convention3.setTitle("Test-Convention 3");
         convention3.setDf(false);
         convention3 = conventionRepository.save(convention3);
