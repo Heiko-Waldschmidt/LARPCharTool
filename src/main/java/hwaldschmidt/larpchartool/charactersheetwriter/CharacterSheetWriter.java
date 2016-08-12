@@ -18,7 +18,8 @@ public interface CharacterSheetWriter {
      * @param chara data about this chara will be exported.
      * @param visits the visits this chara has done.
      * @param condays the condays of this chara.
+     * @return the filename of the character sheet
      * @throws IOException if file could not be written
      */
-    public void createCharacterSheet(Chara chara, List<Visit> visits, int condays) throws IOException;
+    public String createCharacterSheet(Chara chara, List<Visit> visits, int condays) throws IOException;
 }

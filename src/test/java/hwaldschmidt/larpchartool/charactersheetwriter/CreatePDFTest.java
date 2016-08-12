@@ -167,6 +167,7 @@ public class CreatePDFTest {
         List<Visit> visitList = visitService.findByCharaOrderByConventionStartAsc(chara);
         int condays = visitService.sumCondaysByChara(chara);
         CharacterSheetWriter exporter = new PdfCharacterSheetWriter();
-        exporter.createCharacterSheet(chara, visitList, condays);
+        String filename = exporter.createCharacterSheet(chara, visitList, condays);
+        System.out.println("created filed with name: " + filename);
     }
 }

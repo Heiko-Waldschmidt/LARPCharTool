@@ -6,6 +6,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import hwaldschmidt.larpchartool.domain.Chara;
 import hwaldschmidt.larpchartool.domain.Visit;
+import org.springframework.stereotype.Service;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.util.List;
  *
  * @author Heiko Waldschmidt
  */
+@Service
 public class PdfCharacterSheetWriter implements CharacterSheetWriter {
 
     private static Font h1Font = new Font(Font.FontFamily.TIMES_ROMAN, 18,
@@ -25,12 +27,11 @@ public class PdfCharacterSheetWriter implements CharacterSheetWriter {
     private static Font textFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.NORMAL);
 
-    private static String FILE = "c:/temp/FirstPdf.pdf";
-
-    public void createCharacterSheet(Chara chara, List<Visit> visits, int condays) throws IOException {
+    public String createCharacterSheet(Chara chara, List<Visit> visits, int condays) throws IOException {
+        String filename = System.getProperty("java.io.tmpdir") + chara.getName() + ".pdf";
         try {
             Document document = new Document(PageSize.A4);
-            PdfWriter.getInstance(document, new FileOutputStream(FILE));
+            PdfWriter.getInstance(document, new FileOutputStream(filename));
             document.open();
             addMetaData(document);
             addChardata(document, chara, visits, condays);
@@ -42,6 +43,7 @@ public class PdfCharacterSheetWriter implements CharacterSheetWriter {
             // TODO some logging
             throw e;
         }
+        return filename;
     }
 
     private static void addMetaData(Document document) {
