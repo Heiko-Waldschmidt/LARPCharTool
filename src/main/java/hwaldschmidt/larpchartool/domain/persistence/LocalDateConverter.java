@@ -1,4 +1,4 @@
-package hwaldschmidt.larpchartool.domain;
+package hwaldschmidt.larpchartool.domain.persistence;
 
 import java.time.LocalDate;
 import java.sql.Date;
