@@ -9,24 +9,27 @@
 <body>
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <div>
+        <a href="#" th:href="${ '/chara/' + chara.id + '/charactersheet'}" class="btn btn-default">Download</a>
+    </div>
     <h2 th:text="${chara.name}"></h2>
-        <div>
-            <form class="form-horizontal">
-                <!--
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Name:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${chara.name}"></p>
-                    </div>
+    <div>
+        <form class="form-horizontal">
+            <!--
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Name:</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static" th:text="${chara.name}"></p>
                 </div>
-                -->
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Condays:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${condays}"></p>
-                    </div>
+            </div>
+            -->
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Condays:</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static" th:text="${condays}"></p>
                 </div>
-            </form>
+            </div>
+        </form>
     </div>
     <div th:if="${not #lists.isEmpty(visits)}">
         <h2>Visited Conventions</h2>
