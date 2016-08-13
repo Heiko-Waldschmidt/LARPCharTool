@@ -5,7 +5,8 @@ Current features:
 - You can add your characters, conventions and the vists of conventions to a database. -> no Excel Conlist anymore.
   - via WebUI
   - into a SQL-Database.
-  - Integrates H2's UI if you want to look directly into the database.
+  - integrates H2's UI if you want to look directly into the database.
+  - you can export your character data as pdf 
 
 If you are not a programmer and want to test the tool you need to do the following:
 
