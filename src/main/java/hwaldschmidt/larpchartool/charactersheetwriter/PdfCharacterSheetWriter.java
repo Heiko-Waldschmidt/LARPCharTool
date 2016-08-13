@@ -109,56 +109,64 @@ public class PdfCharacterSheetWriter implements CharacterSheetWriter {
 
         PdfPCell pdfPHeaderCell = new PdfPCell(new Phrase("Convention", textBoldFont));
         pdfPHeaderCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        pdfPHeaderCell.setColspan(1);
-        pdfPHeaderCell.setRowspan(1);
+        pdfPHeaderCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        pdfPHeaderCell.setBorderWidth(pdfPHeaderCell.getBorderWidth() * 2);
         table.addCell(pdfPHeaderCell);
 
         pdfPHeaderCell = new PdfPCell(new Phrase("Start", textBoldFont));
         pdfPHeaderCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        pdfPHeaderCell.setColspan(1);
-        pdfPHeaderCell.setRowspan(1);
+        pdfPHeaderCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        pdfPHeaderCell.setBorderWidth(pdfPHeaderCell.getBorderWidth() * 2);
         table.addCell(pdfPHeaderCell);
 
         pdfPHeaderCell = new PdfPCell(new Phrase("End", textBoldFont));
         pdfPHeaderCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        pdfPHeaderCell.setColspan(1);
-        pdfPHeaderCell.setRowspan(1);
+        pdfPHeaderCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        pdfPHeaderCell.setBorderWidth(pdfPHeaderCell.getBorderWidth() * 2);
         table.addCell(pdfPHeaderCell);
 
         pdfPHeaderCell = new PdfPCell(new Phrase("Condays", textBoldFont));
         pdfPHeaderCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        pdfPHeaderCell.setColspan(1);
-        pdfPHeaderCell.setRowspan(1);
+        pdfPHeaderCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        pdfPHeaderCell.setBorderWidth(pdfPHeaderCell.getBorderWidth() * 2);
         table.addCell(pdfPHeaderCell);
 
         table.setHeaderRows(1);
     }
 
     private static void addVisitTableData(PdfPTable table, List<Visit> visits){
+        int i = 1;
         for (Visit visit: visits){
-            PdfPCell pdfPCell1 = new PdfPCell(new Phrase(visit.getConvention().getTitle()));
-            pdfPCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
-            pdfPCell1.setColspan(1);
-            pdfPCell1.setRowspan(1);
-            table.addCell(pdfPCell1);
+            boolean even = i % 2 == 0;
+            PdfPCell pdfPCell = new PdfPCell(new Phrase(visit.getConvention().getTitle()));
+            pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            if (even) {
+                pdfPCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            }
+            table.addCell(pdfPCell);
 
-            PdfPCell pdfPCell2 = new PdfPCell(new Phrase(visit.getConvention().getStart().toString()));
-            pdfPCell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-            pdfPCell2.setColspan(1);
-            pdfPCell2.setRowspan(1);
-            table.addCell(pdfPCell2);
+            pdfPCell = new PdfPCell(new Phrase(visit.getConvention().getStart().toString()));
+            pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            if (even) {
+                pdfPCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            }
+            table.addCell(pdfPCell);
 
-            PdfPCell pdfPCell3 = new PdfPCell(new Phrase(visit.getConvention().getEnd().toString()));
-            pdfPCell3.setHorizontalAlignment(Element.ALIGN_CENTER);
-            pdfPCell3.setColspan(1);
-            pdfPCell3.setRowspan(1);
-            table.addCell(pdfPCell3);
+            pdfPCell = new PdfPCell(new Phrase(visit.getConvention().getEnd().toString()));
+            pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            if (even) {
+                pdfPCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            }
+            table.addCell(pdfPCell);
 
-            PdfPCell pdfPCell4 = new PdfPCell(new Phrase(visit.getCondays().toString()));
-            pdfPCell4.setHorizontalAlignment(Element.ALIGN_CENTER);
-            pdfPCell4.setColspan(1);
-            pdfPCell4.setRowspan(1);
-            table.addCell(pdfPCell4);
+            pdfPCell = new PdfPCell(new Phrase(visit.getCondays().toString()));
+            pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            if (even) {
+                pdfPCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            }
+            table.addCell(pdfPCell);
+
+            ++i;
         }
     }
 
