@@ -97,7 +97,7 @@ public class CharaController {
     @RequestMapping(value = "chara", method = RequestMethod.POST)
     public String saveChara(Chara chara){
         charaService.saveChara(chara);
-        return "redirect:/chara/" + chara.getId();
+        return "redirect:/charas";
     }
 
     @RequestMapping("chara/delete/{id}")

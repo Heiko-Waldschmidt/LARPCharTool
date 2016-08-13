@@ -27,11 +27,13 @@
                 <td th:text="${chara.name}">Title</td>
                 <td><a th:href="${ '/chara/' + chara.id}">Character Sheet</a></td>
                 <td><a th:href="${'/chara/edit/' + chara.id}">Edit</a></td>
-                <td><a th:href="${'/chara/delete/' + chara.id}">Delete</a></td>
+                <td><a th:href="${'/chara/delete/' + chara.id}"
+                       data-confirm="Do you really want to delete this character? All visits of it will be deleted too">Delete</a>
+                </td>
             </tr>
         </table>
     </div>
 </div>
-
+<script type="text/javascript" src="js/confirm.js"></script>
 </body>
 </html>
