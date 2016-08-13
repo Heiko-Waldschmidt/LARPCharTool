@@ -21,6 +21,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import static org.junit.Assert.*;
 
 /**
@@ -30,6 +33,8 @@ import static org.junit.Assert.*;
 @SpringApplicationConfiguration(classes = ChartoolWebApplication.class)
 @WebAppConfiguration
 public class CreatePDFTest {
+
+    private static Logger logger = LoggerFactory.getLogger(CreatePDFTest.class.getName());
 
     private CharaRepository charaRepository;
     private VisitRepository visitRepository;
@@ -165,7 +170,7 @@ public class CreatePDFTest {
     public void test() throws IOException {
         Iterable<Visit> iterable = visitRepository.findAll();
         for (Visit visit: iterable){
-            System.out.println(visit.toString());
+            logger.trace(visit.toString());
         }
         createPDF(chara);
     }
@@ -175,6 +180,6 @@ public class CreatePDFTest {
         int condays = visitService.sumCondaysByChara(chara);
         CharacterSheetWriter sheetWriter = new PdfCharacterSheetWriter();
         String filename = sheetWriter.createCharacterSheet(chara, visitList, condays);
-        System.out.println("created file with name: " + filename);
+        logger.info("created file with name: " + filename);
     }
 }

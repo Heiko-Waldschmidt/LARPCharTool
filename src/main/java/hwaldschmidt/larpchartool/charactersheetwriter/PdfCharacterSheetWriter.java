@@ -10,6 +10,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * CharacterSheetWriter for data of one char as pdf file. Uses "itext".
  *
@@ -24,8 +27,10 @@ public class PdfCharacterSheetWriter implements CharacterSheetWriter {
             Font.BOLD);
     private static Font textFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.NORMAL);
+    private static Logger logger = LoggerFactory.getLogger(PdfCharacterSheetWriter.class.getName());
 
     public String createCharacterSheet(Chara chara, List<Visit> visits, int condays) throws IOException {
+        logger.trace("creating character sheet");
         String filename = System.getProperty("java.io.tmpdir") + chara.getName() + ".pdf";
         try {
             Document document = new Document(PageSize.A4, 36.0F, 36.0F, 36.0F, 60.0F);
@@ -38,10 +43,10 @@ public class PdfCharacterSheetWriter implements CharacterSheetWriter {
             addChardata(document, chara, visits, condays);
             document.close();
         } catch (DocumentException e) {
-            // TODO some logging
-            e.printStackTrace();
+            logger.error("error creating document for " + chara.getName(), e);
+            throw new IOException(e);
         } catch (IOException e){
-            // TODO some logging
+            logger.error("error creating document for " + chara.getName(), e);
             throw e;
         }
         return filename;

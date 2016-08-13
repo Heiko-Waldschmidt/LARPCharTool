@@ -8,8 +8,8 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Chartool</name>
-    <description>Heiko Waldschmidts LARPCharTool</description>
+    <name>Heiko Waldschmidts LARPCharTool</name>
+    <description>LARPCharTool to handle history data of LARPChars</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
+            </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -40,7 +40,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+            </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            </dependency>
         <!--WebJars-->
         <dependency>
             <groupId>org.webjars</groupId>
@@ -52,29 +57,18 @@
             <artifactId>jquery</artifactId>
             <version>3.0.0</version>
         </dependency>
+
+        <!-- Database driver -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <!--
-            <scope>runtime</scope>
-            -->
         </dependency>
+
+        <!-- Exporter -->
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>itextpdf</artifactId>
             <version>5.5.9</version>
-        </dependency>
-        <!--
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>9.4-1206-jdbc42</version>
-        </dependency>
-        -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
