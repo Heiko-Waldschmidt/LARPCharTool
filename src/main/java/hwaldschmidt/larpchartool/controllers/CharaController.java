@@ -66,13 +66,14 @@ public class CharaController {
         Chara chara = charaService.getCharaById(id);
         String filename = "";
         try {
-            // TODO exception handling
             filename = characterSheetWriter.createCharacterSheet(
                     chara,
                     visitService.findByCharaOrderByConventionStartAsc(chara),
                     visitService.sumCondaysByChara(chara)
             );
         } catch (Exception e){
+            // TODO exception handling
+            // Exception is already logged, but we need to show the error to the use in the webinterface
             e.printStackTrace();
         }
         response.setContentType("application/pdf");
