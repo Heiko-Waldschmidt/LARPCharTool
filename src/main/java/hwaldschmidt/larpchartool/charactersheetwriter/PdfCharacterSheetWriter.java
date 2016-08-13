@@ -1,9 +1,7 @@
 package hwaldschmidt.larpchartool.charactersheetwriter;
 
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.*;
 import hwaldschmidt.larpchartool.domain.Chara;
 import hwaldschmidt.larpchartool.domain.Visit;
 import org.springframework.stereotype.Service;
@@ -30,8 +28,11 @@ public class PdfCharacterSheetWriter implements CharacterSheetWriter {
     public String createCharacterSheet(Chara chara, List<Visit> visits, int condays) throws IOException {
         String filename = System.getProperty("java.io.tmpdir") + chara.getName() + ".pdf";
         try {
-            Document document = new Document(PageSize.A4);
-            PdfWriter.getInstance(document, new FileOutputStream(filename));
+            Document document = new Document(PageSize.A4, 36.0F, 36.0F, 36.0F, 60.0F);
+            final PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filename));
+            Footer footer = new Footer();
+            footer.setFooterText("Created by LARPCharTool");
+            writer.setPageEvent(footer);
             document.open();
             addMetaData(document);
             addChardata(document, chara, visits, condays);
@@ -51,7 +52,7 @@ public class PdfCharacterSheetWriter implements CharacterSheetWriter {
         document.addSubject("");
         document.addKeywords("LARP, Char");
         document.addAuthor("");
-        document.addCreator("Heiko Waldschmidts LARP-Chartool");
+        document.addCreator("Heiko Waldschmidts LARPCharTool");
     }
 
     private static void addChardata(Document document, Chara chara, List<Visit> visits, int condays) throws DocumentException {
@@ -159,6 +160,77 @@ public class PdfCharacterSheetWriter implements CharacterSheetWriter {
     private static void addEmptyLine(Paragraph paragraph, int number) {
         for (int i = 0; i < number; i++) {
             paragraph.add(new Paragraph(" "));
+        }
+    }
+
+    /**
+     * from https://stackoverflow.com/questions/8009874/itext-pagenumber-display-in-pdf
+     */
+    private class Footer extends PdfPageEventHelper {
+        /** The footerText text. */
+        String footerText;
+        /** The template with the total number of pages. */
+        PdfTemplate total;
+
+        /**
+         * Allows us to change the content of the footerText.
+         *
+         * @param footerText
+         *            The new footerText String
+         */
+        public void setFooterText(String footerText) {
+            this.footerText = footerText;
+        }
+
+        /**
+         * Creates the PdfTemplate that will hold the total number of pages.
+         *
+         * @see com.itextpdf.text.pdf.PdfPageEventHelper#onOpenDocument(com.itextpdf.text.pdf.PdfWriter,
+         *      com.itextpdf.text.Document)
+         */
+        public void onOpenDocument(PdfWriter writer, Document document) {
+            total = writer.getDirectContent().createTemplate(30, 16);
+        }
+
+        /**
+         * Adds a footerText to every page
+         *
+         * @see com.itextpdf.text.pdf.PdfPageEventHelper#onEndPage(com.itextpdf.text.pdf.PdfWriter,
+         *      com.itextpdf.text.Document)
+         */
+        public void onEndPage(PdfWriter writer, Document document) {
+            PdfPTable table = new PdfPTable(3);
+            try {
+                table.setWidths(new int[] { 24, 24, 2 });
+                table.setTotalWidth(527);
+                table.setLockedWidth(true);
+                table.getDefaultCell().setFixedHeight(20);
+                table.getDefaultCell().setBorder(Rectangle.BOTTOM);
+                table.addCell(footerText);
+                table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
+                table.addCell(String.format("Page %d of", writer.getPageNumber()));
+                PdfPCell cell = new PdfPCell(Image.getInstance(total));
+                cell.setBorder(Rectangle.BOTTOM);
+                table.addCell(cell);
+                table.writeSelectedRows(0, -1, 34, 50, writer.getDirectContent());
+            } catch (DocumentException de) {
+                throw new ExceptionConverter(de);
+            }
+        }
+
+        /**
+         * Fills out the total number of pages before the document is closed.
+         *
+         * @see com.itextpdf.text.pdf.PdfPageEventHelper#onCloseDocument(com.itextpdf.text.pdf.PdfWriter,
+         *      com.itextpdf.text.Document)
+         */
+        public void onCloseDocument(PdfWriter writer, Document document) {
+            ColumnText.showTextAligned(
+                    total,
+                    Element.ALIGN_LEFT,
+                    new Phrase(String.valueOf(writer.getPageNumber())),
+                    2, 2, 0
+            );
         }
     }
 }

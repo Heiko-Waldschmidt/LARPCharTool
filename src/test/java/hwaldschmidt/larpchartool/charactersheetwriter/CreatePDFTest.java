@@ -125,35 +125,42 @@ public class CreatePDFTest {
 
         assertEquals(1, visitRepository.count());
 
-        Convention convention2 = new Convention();
-        convention2.setTitle("Convention 2");
-        convention2.setDf(false);
-        convention2.setStart(LocalDate.of(2001, 2, 2));
-        convention2.setEnd(LocalDate.of(2001, 11, 30));
-        assertNull(convention2.getId()); //null before save
-        conventionRepository.save(convention2);
+        for (int i = 2; i <= 100; ++i){
+            addConventionWithVisit(
+                    chara,
+                    "Convention " + i,
+                    new Short("2"),
+                    LocalDate.of(2000 + i, 2, 2),
+                    LocalDate.of(2000 + i, 11, 30),
+                    false
+            );
+        }
 
-        Convention convention3 = new Convention();
-        convention3.setTitle("Convention 3");
-        convention3.setDf(false);
-        convention3.setStart(LocalDate.of(2002, 3, 3));
-        convention3.setEnd(LocalDate.of(2002, 10, 29));
-        assertNull(convention3.getId()); //null before save
-        conventionRepository.save(convention3);
-
-        Visit visit2 = new Visit();
-        visit2.setChara(chara);
-        visit2.setConvention(convention2);
-        visit2.setCondays(new Short("2"));
-        visitRepository.save(visit2);
-
-        Visit visit3 = new Visit();
-        visit3.setChara(chara);
-        visit3.setConvention(convention3);
-        visit3.setCondays(new Short("5"));
-        visitRepository.save(visit3);
+        assertEquals(100, visitRepository.count());
     }
 
+    private void addConventionWithVisit(Chara chara, String conName, Short condays, LocalDate start, LocalDate end,
+                                        boolean df){
+        Convention convention = new Convention();
+        convention.setTitle(conName);
+        convention.setDf(df);
+        convention.setStart(start);
+        convention.setEnd(end);
+        assertNull(convention.getId()); //null before save
+        conventionRepository.save(convention);
+
+        Visit visit = new Visit();
+        visit.setChara(chara);
+        visit.setConvention(convention);
+        visit.setCondays(condays);
+        visitRepository.save(visit);
+    }
+
+    /**
+     * This is not really an automated test, but I don't like to check the generated pdf automatically. This is too
+     * much work for a hobby project. This test is more a helper for a manual tests of the CharacterSheetWriter.
+     * @throws IOException
+     */
     @Test
     public void test() throws IOException {
         Iterable<Visit> iterable = visitRepository.findAll();
@@ -166,8 +173,8 @@ public class CreatePDFTest {
     private void createPDF(Chara chara) throws IOException {
         List<Visit> visitList = visitService.findByCharaOrderByConventionStartAsc(chara);
         int condays = visitService.sumCondaysByChara(chara);
-        CharacterSheetWriter exporter = new PdfCharacterSheetWriter();
-        String filename = exporter.createCharacterSheet(chara, visitList, condays);
-        System.out.println("created filed with name: " + filename);
+        CharacterSheetWriter sheetWriter = new PdfCharacterSheetWriter();
+        String filename = sheetWriter.createCharacterSheet(chara, visitList, condays);
+        System.out.println("created file with name: " + filename);
     }
 }
