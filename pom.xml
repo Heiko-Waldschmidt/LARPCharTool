@@ -11,6 +11,26 @@
     <name>Heiko Waldschmidts LARPCharTool</name>
     <description>LARPCharTool to handle history data of LARPChars</description>
 
+    <developers>
+        <developer>
+            <email></email>
+            <name>Heiko Waldschmidt</name>
+            <url>https://github.com/Heiko-Waldschmidt</url>
+            <id>Heiko-Waldschmidt</id>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/Heiko-Waldschmidt/LARPCharTool</url>
+        <connection>scm:git:git://github.com/Heiko-Waldschmidt/LARPCharTool.git</connection>
+        <developerConnection>scm:git:git@github.com:Heiko-Waldschmidt/LARPCharTool.git</developerConnection>
+    </scm>
+
+    <issueManagement>
+        <url>https://github.com/Heiko-Waldschmidt/LARPCharTool/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
