@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>hwaldschmidt</groupId>
     <artifactId>larpchartool</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Heiko Waldschmidts LARPCharTool</name>
@@ -12,7 +13,7 @@
 
     <developers>
         <developer>
-            <email />
+            <email></email>
             <name>Heiko Waldschmidt</name>
             <url>https://github.com/Heiko-Waldschmidt</url>
             <id>Heiko-Waldschmidt</id>
@@ -23,8 +24,7 @@
         <url>https://github.com/Heiko-Waldschmidt/LARPCharTool</url>
         <connection>scm:git:git://github.com/Heiko-Waldschmidt/LARPCharTool.git</connection>
         <developerConnection>scm:git:git@github.com:Heiko-Waldschmidt/LARPCharTool.git</developerConnection>
-      <tag>larpchartool-0.0.1</tag>
-  </scm>
+    </scm>
 
     <issueManagement>
         <url>https://github.com/Heiko-Waldschmidt/LARPCharTool/issues</url>
@@ -35,7 +35,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.2.4.RELEASE</version>
-        <relativePath />
+        <relativePath/>
         <!-- lookup parent from repositories -->
     </parent>
 
