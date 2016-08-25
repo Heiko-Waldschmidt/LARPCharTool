@@ -4,10 +4,13 @@ import hwaldschmidt.larpchartool.domain.Visit;
 import hwaldschmidt.larpchartool.services.CharaService;
 import hwaldschmidt.larpchartool.services.ConventionService;
 import hwaldschmidt.larpchartool.services.VisitService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +24,8 @@ import javax.validation.Valid;
  */
 @Controller
 public class VisitController {
+
+    private static Logger logger = LoggerFactory.getLogger(VisitController.class.getName());
     private VisitService visitService;
     private CharaService charaService;
     private ConventionService conventionService;
@@ -41,7 +46,7 @@ public class VisitController {
     }
 
     @RequestMapping(value = "visits", method = RequestMethod.GET)
-    public String list(Model model){
+    public String listVisits(Model model){
         model.addAttribute("visits", visitService.listAllVisits());
         return "visits";
     }
@@ -53,7 +58,7 @@ public class VisitController {
     }
 
     @RequestMapping("visit/edit/{id}")
-    public String edit(@PathVariable Integer id, Model model){
+    public String editVisit(@PathVariable Integer id, Model model){
         model.addAttribute("visit", visitService.getVisitById(id));
         model.addAttribute("charas", charaService.listAllCharas());
         model.addAttribute("conventions", conventionService.listAllConventions());
@@ -68,21 +73,45 @@ public class VisitController {
         return "visitform";
     }
 
-    @RequestMapping(value = "visit/update", method = RequestMethod.POST)
-    public ModelAndView updateVisit(@Valid Visit visit, BindingResult bindingResult){
+    @RequestMapping(value = "visit/update", params = {"save"}, method = RequestMethod.POST)
+    public String updateVisit(@Valid Visit visit, Model model, BindingResult bindingResult){
 
         if (bindingResult.hasErrors()){
-            System.err.println(bindingResult.toString());
-            return new ModelAndView("redirect:/visit/edit/" + visit.getId());
+            logger.error("visit/update binding result has errors");
+            model.addAttribute("visit", visit);
+            model.addAttribute("charas", charaService.listAllCharas());
+            model.addAttribute("conventions", conventionService.listAllConventions());
+            return "visitform";
+        }
+        if (isUniqueConstraintViolated(visit)){
+            logger.error("visit/update: constraint is violated");
+            bindingResult.rejectValue("chara", "chara", "A character cannot visit a convention more than once.");
+            bindingResult.rejectValue("convention", "convention", "A character cannot visit a convention more than once.");
+            model.addAttribute("visit", visit);
+            model.addAttribute("charas", charaService.listAllCharas());
+            model.addAttribute("conventions", conventionService.listAllConventions());
+            return "visitform";
         }
         visitService.saveVisit(visit);
-        return new ModelAndView("redirect:/visits");
+        return "redirect:/visits";
     }
 
     @RequestMapping("visit/delete/{id}")
     public String deleteVisit(@PathVariable Integer id){
-        System.err.println("Id to delete " + id);
+        logger.debug("visit id to delete " + id);
         visitService.deleteVisit(id);
         return "redirect:/visits";
+    }
+
+    private boolean isUniqueConstraintViolated(Visit visit){
+        Iterable<Visit> visits = visitService.listAllVisits();
+        for(Visit anyVisit: visits){
+            if (visit.getId().intValue() != anyVisit.getId().intValue() &&
+                    visit.getChara().getId() == anyVisit.getChara().getId() &&
+                    visit.getConvention().getId() == anyVisit.getConvention().getId()){
+                        return true;
+                    }
+        }
+        return false;
     }
 }

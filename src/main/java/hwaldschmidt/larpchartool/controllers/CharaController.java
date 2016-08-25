@@ -46,7 +46,7 @@ public class CharaController {
     }
 
     @RequestMapping(value = "/charas", method = RequestMethod.GET)
-    public String list(Model model){
+    public String listCharas(Model model){
         model.addAttribute("charas", charaService.listAllCharas());
         return "charas";
     }
@@ -83,7 +83,7 @@ public class CharaController {
     }
 
     @RequestMapping("chara/edit/{id}")
-    public String edit(@PathVariable Integer id, Model model){
+    public String editChara(@PathVariable Integer id, Model model){
         model.addAttribute("chara", charaService.getCharaById(id));
         return "charaform";
     }

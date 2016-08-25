@@ -25,7 +25,7 @@ public class ConventionController {
     }
 
     @RequestMapping(value = "/conventions", method = RequestMethod.GET)
-    public String list(Model model){
+    public String listConventions(Model model){
         model.addAttribute("conventions", conventionService.listAllConventions());
         return "conventions";
     }
@@ -37,7 +37,7 @@ public class ConventionController {
     }
 
     @RequestMapping("convention/edit/{id}")
-    public String edit(@PathVariable Integer id, Model model){
+    public String editConvention(@PathVariable Integer id, Model model){
         model.addAttribute("convention", conventionService.getConventionById(id));
         return "conventionform";
     }

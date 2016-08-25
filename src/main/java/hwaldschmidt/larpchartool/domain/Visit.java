@@ -23,19 +23,18 @@ public class Visit {
     @Version
     private Integer version;
 
-//    @NotNull
+    @NotNull
     @Column(nullable = false)
     private Short condays;
 
     @ManyToOne
     @JoinColumn(name="chara_id")
-//    @NotNull
+    @NotNull
     private Chara chara;
 
     @ManyToOne
     @JoinColumn(name="convention_id")
-//    @Min(0)
-//    @NotNull
+    @NotNull
     private Convention convention;
 
     public Integer getId() {

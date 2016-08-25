@@ -26,16 +26,16 @@ public class Convention {
     @OneToMany(mappedBy = "convention", cascade = CascadeType.ALL)
     private List<Visit> visits;
 
-//    @NotNull
+    @NotNull
     @Column(unique=true, nullable=false)
     private String title;
 
-    //@NotNull
+    @NotNull
     // Creates a converter for string to localeDate conversion. Needed since I use LocalDate
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate start;
 
-    //@NotNull
+    @NotNull
     // Creates a converter for string to localeDate conversion. Needed since I use LocalDate
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate end;

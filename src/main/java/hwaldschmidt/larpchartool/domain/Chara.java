@@ -21,7 +21,7 @@ public class Chara {
     @Version
     private Integer version;
 
-//    @NotNull
+    @NotNull
     @Column(unique=true, nullable=false)
     private String name;
 
