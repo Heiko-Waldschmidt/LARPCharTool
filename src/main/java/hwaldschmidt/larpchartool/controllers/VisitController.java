@@ -106,7 +106,7 @@ public class VisitController {
     private boolean isUniqueConstraintViolated(Visit visit){
         Iterable<Visit> visits = visitService.listAllVisits();
         for(Visit anyVisit: visits){
-            if (visit.getId().intValue() != anyVisit.getId().intValue() &&
+            if ((visit.getId() == null || (visit.getId().intValue() != anyVisit.getId().intValue())) &&
                     visit.getChara().getId() == anyVisit.getChara().getId() &&
                     visit.getConvention().getId() == anyVisit.getConvention().getId()){
                         return true;
