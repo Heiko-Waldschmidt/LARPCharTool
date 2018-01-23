@@ -10,7 +10,7 @@ Current features:
 
 If you are not a programmer and want to test the tool you need to do the following:
 
-1. Requirements: You need Java Runtime Version 8 installed. You need a Browser (I only tested the tool with Chrome).
+1. Requirements: You need Java Runtime Version 8 installed. You need a Browser (The tool is tested with Chrome and Firefox 58.0).
 2. Download the jar-File (https://github.com/Heiko-Waldschmidt/LARPCharTool/releases)
 3. execute: java -jar "jarfilename"
 4. open your browser
